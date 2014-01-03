@@ -9,8 +9,11 @@ describe ChartImagesController do
     response.content_type.should == 'image/png'
   end
 
-
-
+  it 'creates a chart png with a get' do
+    get :index, input: File.read("#{Rails.root}/spec/fixtures/input.json"), width: 300
+    response.should be_success
+    response.content_type.should == 'image/png'
+  end
 end
 
 

@@ -1,6 +1,6 @@
 HighchartImageApi::Application.routes.draw do
 
-  resources "chart_images", only: [:create]
+  resources "chart_images", only: [:create, :index]
 
   resource :status, only: [:show], controller: :status
 
