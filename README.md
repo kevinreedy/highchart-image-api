@@ -61,7 +61,3 @@ File.open('./chart.png', 'wb'){ |file| file << response.body }
 ```
 
 Where chart_object_js is a [string value](spec/fixtures/input.json) that can be passed into the Highcharts.Chart constructor.
-
-
-
-
