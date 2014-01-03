@@ -23,6 +23,10 @@ class ChartImage
     infile.close
   end
 
+  def data
+    @data ||= Base64.encode64(open(file) { |io| io.read })
+  end
+
   private
 
   def infile_path
@@ -31,13 +35,13 @@ class ChartImage
 
   def infile
     @infile ||= Tempfile.open(['infile', '.json']) do |out|
-      out.write input 
+      out.write input
       out
     end
   end
 
   def generate_chart
-    temp_file = Tempfile.new(['bar_chart', '.png'])
+    temp_file = Tempfile.new([Time.now.to_i.to_s, '.png'])
     temp_file.binmode
     Rails.logger.info %x[phantomjs ./app/javascript/highcharts-convert.js -infile #{infile_path} -outfile #{temp_file.path} -width #{width} 2>&1]
     temp_file
