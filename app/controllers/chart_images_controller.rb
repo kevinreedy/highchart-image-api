@@ -11,11 +11,20 @@ class ChartImagesController < ApplicationController
     # read from cache for performance
     @chart_data = Rails.cache.read(cache_key)
     if @chart_data.nil?
-      image ||= ChartImage.new(input: params[:input], width: params[:width])
+      image ||= ChartImage.new(input: input, width: params[:width])
       @chart_data = image.data
       Rails.cache.write(cache_key, image.data)
     end
     @chart_data
   end
 
+  def input
+    begin
+      input = JSON.parse(params[:input])
+    rescue
+      # its not json, attempt to encode
+      return params[:input].to_json
+    end
+    input
+  end
 end
