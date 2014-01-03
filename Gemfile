@@ -14,6 +14,7 @@ gem 'pg'
 
 group :production do
   gem 'rpm_contrib'
+  gem 'dalli'
 end
 
 group :test, :development do
